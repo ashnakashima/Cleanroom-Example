@@ -12,20 +12,22 @@ function EssentialFeatures(props) {
 
     return (
         <div style={{ display: 'block', marginTop: '10px' }}>
+
+            {requests.map((req, index) => (
+                <p id={index}> {req.request_id}
+                    {req.msg} </p>
+            ))}
+
             {/*Here is some clarification on the variant and keyword props*/}
             {/*variant: primary:blue, secondary:grey, danger:red*/}
             {/*keyword: keyword*/}
             {/*label: what you want the button to say*/}
-            {requests.map((req, index) => (
-                <p id={index}> {req.request_id}
-                    {req.errcode} </p>
-            ))}
-            <KeywordButton keyword={"scalemon.AVAILABILTY"} variant={"secondary"} label={"Click Me"} />
+            <KeywordButton keyword={"pie.mixed"} variant={"secondary"} label={"Click Me"} />
             <KeywordButton keyword={"scalemon.CLEANROOM"} variant={"danger"} label={"Click Me 2"} />
 
             <KeywordDropdownButton label={"Make a selection"} keyword={"scalemon.AVAILABILITY"} options={['option1', 'option2', 'option3']} />
 
-            <KeywordForm label={"Enter data:"} keyword={"scalemon.HEARTBEATS"} />
+            <KeywordForm label={"Enter data:"} keyword={"pie.MIXED"} />
 
             <KeywordCheckbox label={'Make a selection'} keyword={'scalemon.HB_STATUS'} options={['option1', 'option2', 'option3']} />
 

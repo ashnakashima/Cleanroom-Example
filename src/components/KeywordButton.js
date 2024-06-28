@@ -1,15 +1,19 @@
-import React from 'react';
-import {Button} from "react-bootstrap";
+import React, {useState} from 'react';
+import {Button, Spinner} from "react-bootstrap";
 import {useWebSocket} from "../context/WebSocketContext";
 
 
 function KeywordButton({keyword, variant, label}) {
 
-    const {ws, sendMessage, messages, requests} = useWebSocket();
+    const {ws, sendMessage, messages} = useWebSocket();
+    const [isLoading, setIsLoading] = useState(false);
+
+
 
     const handleClick = () => {
-        alert(`has been clicked`)
-        const message = { "type": "modify", "request_id": null, "key": {keyword}, "value":"too"};
+        setIsLoading(true);
+        setTimeout(() => setIsLoading(false), 1000);
+        const message = { "type": "modify", "request_id": null, "key": keyword, "value":"foo2"};
         sendMessage(message);
     }
 
@@ -24,8 +28,11 @@ function KeywordButton({keyword, variant, label}) {
                 onClick={handleClick}
                 type="button"
             >
-                {label}
+                {!isLoading ? label : <Spinner animation="border" variant="primary" size="sm"/>}
             </Button>
+
+
+
 
 
         </>

@@ -17,16 +17,7 @@ export const WebSocketProvider = ({url, children}) => {
         }
     }, [ws]);
 
-    const sendMessage = useCallback((message) => {
-        if(ws && ws.readyState === WebSocket.OPEN){
-            message.request_id = reqIdCounter;
-            setReqIdCounter(prevCounter => prevCounter + 1);
-            console.log(`sending: ${JSON.stringify(message)}`)
-            ws.send(JSON.stringify(message));
-        }else{
-            console.error("WebSocket is not open")
-        }
-    }, [ws, reqIdCounter]);
+
 
     useEffect(() => {
 
@@ -40,8 +31,7 @@ export const WebSocketProvider = ({url, children}) => {
 
         wsClient.onmessage = (message) => {
             const parsedMessage = JSON.parse(message.data);
-            //console.log(`Received message: ${parsedMessage.key} : ${parsedMessage.value}`);
-
+            console.log(`Received message: ${parsedMessage.key} : ${parsedMessage.value}`);
             if(parsedMessage.type && parsedMessage.request_id) {
                 if(parsedMessage.errcode !== "SUCCESS"){
                     setError(parsedMessage.msg)
@@ -55,6 +45,7 @@ export const WebSocketProvider = ({url, children}) => {
                 //console.log(requests.length)
             else if(parsedMessage.key && parsedMessage.value){
                 messages[parsedMessage.key] = parsedMessage.value;
+                //console.log(messages);
             }
         };
         wsClient.onclose = () => {
@@ -71,6 +62,17 @@ export const WebSocketProvider = ({url, children}) => {
             wsClient.close();
         }
     }, [messages, url]);
+
+    const sendMessage = useCallback((message) => {
+        if(ws && ws.readyState === WebSocket.OPEN){
+            message.request_id = reqIdCounter;
+            setReqIdCounter(prevCounter => prevCounter + 1);
+            // console.log(`sending: ${JSON.stringify(message)}`)
+            ws.send(JSON.stringify(message));
+        }else{
+            console.error("WebSocket is not open")
+        }
+    }, [ws, reqIdCounter]);
 
     return (
         <WebSocketContext.Provider value={{messages, closeConnection, sendMessage, ws, requests, error}}>

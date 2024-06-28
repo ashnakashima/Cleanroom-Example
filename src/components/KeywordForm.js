@@ -1,23 +1,34 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import {useState} from "react";
 import {useWebSocket} from "../context/WebSocketContext";
 
-function KeywordForm({keyword, label}) {
+function KeywordForm({keyword, label, messages}) {
     const {sendMessage} = useWebSocket();
-
-    const [input, setInput] = useState("Default");
-    const defaultInput = "Default";
+    const defaultInput = "default";
     const[bgColor, setBgColor] = useState("transparent");
+    const [input, setInput] = useState("");
+
+    useEffect(() => {
+        // Set the initial input value based on the keyword value in messages
+        if (messages && messages[keyword] !== undefined) {
+            setInput(messages[keyword]);
+        }
+    }, [messages, keyword]);
+
+
 
     const handleSubmit = (e) => {
         e.preventDefault();
         alert(`You entered: "${input}" for keyword:${keyword}`)
     }
 
+
     const handleInput = (e) => {
         setInput(e.target.value)
+        console.log(`input: ${input}`)
         setBgColor(e.target.value ? "pink" : "transparent");
     }
+
 
     // On enter -> window prompts user confirmation
     // if user not confirm, reverts input back to default
@@ -36,14 +47,18 @@ function KeywordForm({keyword, label}) {
 
     const performAction = () => {
         setBgColor('transparent');
-        const message = { "type": "modify", "request_id": null, "key":{keyword}, "value":{input}};
+        const message = { "type": "modify", "request_id": null, "key":keyword, "value":input};
         sendMessage(message);
         // put code for modifying here
     }
+
+    const keyArray = keyword.split(".");
+    let key = keyArray[1];
+
     return (
         <div style={{fontSize:10}}>
             <form>
-                <label id={keyword}> {label}
+                <label id={keyword}> {key}
                     <input
                         id={keyword}
                         type="text"
@@ -52,11 +67,12 @@ function KeywordForm({keyword, label}) {
                         onKeyDown={handleKeyDown}
                         style={{
                             backgroundColor:bgColor,
-                            width: '70px'
+                            width: '60px'
                     }}
                     />
                 </label>
             </form>
+
         </div>
     );
 }
