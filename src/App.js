@@ -1,24 +1,28 @@
-import logo from './logo.svg';
 import './App.css';
+import {BrowserRouter, Routes, Route} from 'react-router-dom';
+import SideBar from './components/SideBar';
+import Home from './components/Home';
+import Alarms2 from "./components/Alarms2";
+import {WebSocketProvider} from "./context/WebSocketContext";
+import Stages from "./components/Stages";
+import EssentialFeatures from "./components/EssentialFeatures";
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+      <div className="App d-flex">
+          <WebSocketProvider url='ws://scaleserver:8080/gshowd'>
+              <BrowserRouter>
+                  <SideBar />
+                  <div className='App flex-grow-1'>
+                      <Routes>
+                          <Route path="/" element={<Home />} />
+                          <Route path="/alarms" element={<Alarms2/>} />
+                          <Route path="/stages" element={<Stages/>} />
+                      </Routes>
+                  </div>
+              </BrowserRouter>
+          </WebSocketProvider>
+      </div>
   );
 }
 
