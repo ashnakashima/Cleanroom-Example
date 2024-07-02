@@ -9,16 +9,19 @@ function KeywordDropdownButton({label, keyword, options}) {
     const handleSelectChange = (e) => {
         const value = e.target.value;
         setSelectedOption(value);
-        const message = { "type": "modify", "request_id": null, "key":{keyword}, "value":{value}};
+        const message = { "type": "modify", "request_id": null, "key":keyword, "value":value};
         sendMessage(message);
     }
 
+    const keyArray = keyword.split(".");
+    let key = keyArray[1];
+
     return (
-        <div style={{fontSize:10}}>
+        <div  style={{fontSize:10, display:'block', margin:5}}>
             <label>
-                {label}
+                {label ? label : `${key}: ` }
             <select
-                style={{display:'block'}}
+                // style={{display:'block'}}
                 onChange={handleSelectChange}
                 id={keyword}
             >
@@ -29,7 +32,6 @@ function KeywordDropdownButton({label, keyword, options}) {
                 })}
             </select>
             </label>
-            <span style={{display:'block'}}>You selected {selectedOption}</span>
 
         </div>
     );

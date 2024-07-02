@@ -8,7 +8,7 @@ import EssentialFeatures from "./EssentialFeatures";
 function Home() {
     return (
         <div>
-            <div className="d-flex flex-column">
+            <div >
                 {/*<Alarms2 />*/}
                 {/*<Stages/>*/}
                 <EssentialFeatures />

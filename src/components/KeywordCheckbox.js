@@ -16,13 +16,15 @@ function KeywordCheckbox({keyword, label, options}){
             ? checkedList.filter((item) => item !== value)
             : [...checkedList, value];
             setCheckedList(updatedList);
-        const message = { "type": "modify", "request_id": null, "key":{keyword}, "value":{checkedList}};
+        const message = { "type": "modify", "request_id": null, "key":keyword, "value":checkedList};
         sendMessage(message);
     };
+    const keyArray = keyword.split(".");
+    let key = keyArray[1];
 
     return (
         <div style={{fontSize:10}}>
-            {label}
+            {label ? label : `${key}: ` }
             {options.map((option, index) => {
                 return(
                     <div key={index} style={{display:'block'}}>

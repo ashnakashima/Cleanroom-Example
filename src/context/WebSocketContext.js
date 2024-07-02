@@ -1,5 +1,4 @@
-import React, {createContext, useState, useEffect, useCallback, useContext, useRef} from "react";
-import {buildTimeValue} from "@testing-library/user-event/dist/utils";
+import React, {createContext, useState, useEffect, useCallback, useContext,} from "react";
 
 const WebSocketContext = createContext(null);
 
@@ -30,8 +29,13 @@ export const WebSocketProvider = ({url, children}) => {
         };
 
         wsClient.onmessage = (message) => {
+            //console.log(message);
             const parsedMessage = JSON.parse(message.data);
+
+
+            // console.log(parsedMessage)
             console.log(`Received message: ${parsedMessage.key} : ${parsedMessage.value}`);
+
             if(parsedMessage.type && parsedMessage.request_id) {
                 if(parsedMessage.errcode !== "SUCCESS"){
                     setError(parsedMessage.msg)
@@ -44,7 +48,30 @@ export const WebSocketProvider = ({url, children}) => {
             }
                 //console.log(requests.length)
             else if(parsedMessage.key && parsedMessage.value){
-                messages[parsedMessage.key] = parsedMessage.value;
+                setMessages((prevMessages) => {
+                    // Check if parsedMessage is already in prevMessages
+                    const existingMessage = prevMessages.find(msg => msg.key === parsedMessage.key);
+
+                    if (existingMessage) {
+                        // If the message already exists, update its value
+                        return prevMessages.map(msg =>
+                            msg.key === parsedMessage.key ? { ...msg, value: parsedMessage.value } : msg
+                        );
+                    } else {
+                        // Otherwise, add the new message to the array
+                        return [...prevMessages, parsedMessage];
+                    }
+                });
+
+                //setMessages((prevMessages) => [...prevMessages, parsedMessage]);
+
+
+                // setMessages((prevMessages) => ({
+                //     ...prevMessages,
+                //     [parsedMessage.key]: parsedMessage.value,
+                // }));
+
+                // messages[parsedMessage.key] = parsedMessage.value;
                 //console.log(messages);
             }
         };
@@ -61,7 +88,7 @@ export const WebSocketProvider = ({url, children}) => {
         return () => {
             wsClient.close();
         }
-    }, [messages, url]);
+    }, [url]);
 
     const sendMessage = useCallback((message) => {
         if(ws && ws.readyState === WebSocket.OPEN){
