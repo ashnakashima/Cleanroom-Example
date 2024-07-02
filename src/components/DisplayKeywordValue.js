@@ -12,12 +12,6 @@ function DisplayKeywordValue({keyword}) {
                 setValue(msg.value);
             }
         })
-
-        // console.log(`keyword value: ${messages[keyword]}`)
-        // console.log(`messages: ${messages[0].value}`)
-        // if(messages[keyword] !== undefined){
-        //     setValue(messages[keyword]);
-        // }
     }, [messages, keyword])
 
 

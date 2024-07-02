@@ -34,7 +34,7 @@ export const WebSocketProvider = ({url, children}) => {
 
 
             // console.log(parsedMessage)
-            console.log(`Received message: ${parsedMessage.key} : ${parsedMessage.value}`);
+            //console.log(`Received message: ${parsedMessage.key} : ${parsedMessage.value}`);
 
             if(parsedMessage.type && parsedMessage.request_id) {
                 if(parsedMessage.errcode !== "SUCCESS"){
@@ -62,17 +62,6 @@ export const WebSocketProvider = ({url, children}) => {
                         return [...prevMessages, parsedMessage];
                     }
                 });
-
-                //setMessages((prevMessages) => [...prevMessages, parsedMessage]);
-
-
-                // setMessages((prevMessages) => ({
-                //     ...prevMessages,
-                //     [parsedMessage.key]: parsedMessage.value,
-                // }));
-
-                // messages[parsedMessage.key] = parsedMessage.value;
-                //console.log(messages);
             }
         };
         wsClient.onclose = () => {

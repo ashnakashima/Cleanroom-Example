@@ -1,14 +1,12 @@
 import React, {useEffect, useState} from 'react';
 import {Button, Spinner} from "react-bootstrap";
 import {useWebSocket} from "../context/WebSocketContext";
-import DisplayKeywordValue from "./DisplayKeywordValue";
 
 
 function KeywordButton({keyword, variant, label}) {
 
-    const {ws, sendMessage, messages} = useWebSocket();
+    const {sendMessage} = useWebSocket();
     const [isLoading, setIsLoading] = useState(false);
-    const [value, setValue] = useState("");
 
 
     const handleClick = () => {
@@ -33,7 +31,6 @@ function KeywordButton({keyword, variant, label}) {
             >
                 {label ? label : key }
             </Button>
-            {/*<DisplayKeywordValue keyword={'key'} />*/}
 
 
 
