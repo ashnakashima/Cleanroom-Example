@@ -2,19 +2,20 @@ import React, {useEffect} from 'react';
 import {useState} from "react";
 import {useWebSocket} from "../context/WebSocketContext";
 
-function KeywordForm({keyword, label, messages}) {
-    const {sendMessage} = useWebSocket();
+function KeywordForm({keyword, label}) {
+    const {sendMessage, messages} = useWebSocket();
     const defaultInput = "";
     const[bgColor, setBgColor] = useState("transparent");
     const [input, setInput] = useState("");
+    const [initialInput, setInitialInput] = useState('');
 
 
-    // useEffect(() => {
-    //     // Set the initial input value based on the keyword value in messages
-    //     if (messages && messages[keyword] !== undefined) {
-    //         setInput(messages[keyword]);
-    //     }
-    // }, [messages, keyword]);
+    useEffect(() => {
+        const message = messages.find((msg) => msg.key === keyword);
+        if(message){
+            setInitialInput(message.value);
+        }
+    }, [keyword, messages]);
 
 
     const handleInput = (e) => {
@@ -52,7 +53,7 @@ function KeywordForm({keyword, label, messages}) {
     return (
         <div style={{fontSize:10, margin:5}}>
             <form>
-                <label id={keyword}> {label ? label : `${key}: ` }
+                <label id={keyword}> {label ? label : `${key}: ${initialInput} ` }
                     <input
                         id={keyword}
                         type="text"
@@ -61,8 +62,7 @@ function KeywordForm({keyword, label, messages}) {
                         onKeyDown={handleKeyDown}
                         style={{
                             backgroundColor:bgColor,
-                            width: '60px'
-                    }}
+                            width: '60px'}}
                     />
                 </label>
             </form>

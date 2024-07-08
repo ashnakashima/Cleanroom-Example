@@ -9,6 +9,7 @@ function KeywordValueTable({ keywordList }) {
     useEffect(() => {
         const newValues = {};
         keywordList.forEach(keyword => {
+
             const message = messages.find(msg => msg.key === keyword);
             newValues[keyword] = message ? message.value : null;
         });
@@ -16,13 +17,16 @@ function KeywordValueTable({ keywordList }) {
     }, [messages, keywordList]);
 
     return (
-        <div style={{ fontSize: 10, margin: 5 }}>
-            <Table bordered hover>
+        <div className='key-value-table'>
+            <Table bordered hover >
                 <tbody>
                 {keywordList.map(keyword => (
-                    <tr key={keyword}>
-                        <td style={{width:'40%'}}>{keyword}</td>
-                        <td>{values[keyword] !== null ? values[keyword] : 'not found'}</td>
+                    <tr key={keyword} >
+                        <td style={{width:'35%'}}>{keyword}</td>
+                        {values[keyword] !== null ?
+                            <td> {values[keyword]} </td>
+                            :
+                            <td style={{backgroundColor:'pink'}}>ERROR: KEYWORD NOT VALID or VALUE is null</td>}
                     </tr>
                 ))}
                 </tbody>

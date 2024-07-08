@@ -1,19 +1,13 @@
 import React from 'react';
-import Stages from "./Stages";
-import Alarms from "./Alarms";
 import {Col, Container, Row} from "react-bootstrap";
-import Alarms2 from "./Alarms2";
 import EssentialFeatures from "./EssentialFeatures";
+import Alarms2 from "./Alarms2";
 
 function Home() {
     return (
         <div>
-            <div >
-                {/*<Alarms2 />*/}
-                {/*<Stages/>*/}
-                <EssentialFeatures />
-
-            </div>
+            <EssentialFeatures />
+            <Alarms2/>
         </div>
     );
 }

@@ -1,9 +1,9 @@
 import React, {useEffect, useState} from 'react';
-import {Button, Spinner} from "react-bootstrap";
+import {Button} from "react-bootstrap";
 import {useWebSocket} from "../context/WebSocketContext";
 
 
-function KeywordButton({keyword, variant, label}) {
+function KeywordButton({keyword, variant, label, buttonValue}) {
 
     const {sendMessage} = useWebSocket();
     const [isLoading, setIsLoading] = useState(false);
@@ -12,7 +12,7 @@ function KeywordButton({keyword, variant, label}) {
     const handleClick = () => {
         setIsLoading(true);
         setTimeout(() => setIsLoading(false), 1000);
-        const message = { "type": "modify", "request_id": null, "key": keyword, "value":"foo-updatewithbutton"};
+        const message = { "type": "modify", "request_id": null, "key": keyword, "value": buttonValue};
         sendMessage(message);
     }
 

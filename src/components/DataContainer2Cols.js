@@ -1,31 +1,35 @@
 import React from 'react';
-import {Col, Container, Row} from "react-bootstrap";
+import {Col , Row} from "react-bootstrap";
 
-function DataContainer2Cols({header, content1, content2}) {
+function DataContainer2Cols({header, contentTop, contentLeft, contentRight, contentBottom}) {
     const displayContent = () => {
-        if(content2 && content1){
+        if(contentLeft && contentRight){
             return (
-                <Container>
+                <>
+                    {contentTop}
                     <Row>
-                        <Col>{content1}</Col>
-                        <Col> {content2}</Col>
+                        <Col>{contentLeft}</Col>
+                        <Col> {contentRight}</Col>
                     </Row>
-                </Container>
+                    {contentBottom}
+                </>
             )
         }else{
             return (
-                <Container>
+                <>
+                    {contentTop}
                     <Row>
-                        <Col>{content1}</Col>
+                        <Col>{contentLeft}</Col>
                     </Row>
-                </Container>
+                    {contentBottom}
+                </>
             )
         }
     }
 
     return (
         <div className='card' style={{margin:10, padding:5}}>
-            <h3 style={{backgroundColor:"lightgray"}}>{header ? header : " "}</h3>
+            {header ? <div className='header'>{header} </div> : " "}
             {displayContent()}
         </div>
     );

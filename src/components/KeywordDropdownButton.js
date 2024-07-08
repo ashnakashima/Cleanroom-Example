@@ -1,11 +1,20 @@
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import {useWebSocket} from "../context/WebSocketContext";
 
 function KeywordDropdownButton({label, keyword, options}) {
+    const {sendMessage, messages} = useWebSocket();
+
 
     const [selectedOption, setSelectedOption] = useState('');
+    const [initialOption, setInitialOption] = useState('');
 
-    const {sendMessage} = useWebSocket();
+    useEffect(() => {
+        const message = messages.find((msg) => msg.key === keyword);
+        if(message){
+            setInitialOption(message.value);
+        }
+    }, [keyword, messages]);
+
     const handleSelectChange = (e) => {
         const value = e.target.value;
         setSelectedOption(value);
@@ -17,17 +26,18 @@ function KeywordDropdownButton({label, keyword, options}) {
     let key = keyArray[1];
 
     return (
-        <div  style={{fontSize:10, display:'block', margin:5}}>
+        <div  style={{fontSize:10, display:'block', margin:3}}>
             <label>
                 {label ? label : `${key}: ` }
             <select
                 // style={{display:'block'}}
                 onChange={handleSelectChange}
                 id={keyword}
+                value={initialOption}
             >
                 {options.map((value, index) => {
                     return(
-                    <option key={index} value={value}>{value}</option>
+                    <option key={index} value={value} >{value}</option>
                     )
                 })}
             </select>

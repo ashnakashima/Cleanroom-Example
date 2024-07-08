@@ -6,7 +6,7 @@ export const WebSocketProvider = ({url, children}) => {
     const [messages, setMessages] = useState([]);
     const [ws, setWs] = useState(null);
     const [requests, setRequests] = useState([]);
-    const [error, setError] = useState(null);
+    // const [error, setError] = useState(null);
     const [reqIdCounter, setReqIdCounter] = useState(1);
 
 
@@ -25,6 +25,7 @@ export const WebSocketProvider = ({url, children}) => {
         wsClient.onopen = () => {
             // wsClient.send("-c&-jsonfragments&-prefix&-s&sca%");
             wsClient.send("-c&-jsonfragments&-prefix&-s&pie&!&slow&!&%timeout");
+            console.log('Connection to WebSocket server');
 
         };
 
@@ -38,10 +39,11 @@ export const WebSocketProvider = ({url, children}) => {
 
             if(parsedMessage.type && parsedMessage.request_id) {
                 if(parsedMessage.errcode !== "SUCCESS"){
-                    setError(parsedMessage.msg)
-                    console.log(`request: ${parsedMessage.request_id}  error: ${parsedMessage.msg}`)
+                    alert(`Error: ${parsedMessage.msg}`)
+                    // console.log(`request: ${parsedMessage.request_id}  error: ${parsedMessage.msg}`)
                 }else(
-                    console.log(`request: ${parsedMessage.request_id} was a ${parsedMessage.errcode}`)
+                    alert(`${parsedMessage.errcode}`)
+                    // console.log(`request: ${parsedMessage.request_id} was a ${parsedMessage.errcode}`)
                 )
                 setRequests((prevMessages) => [...prevMessages, parsedMessage]);
 
@@ -64,15 +66,15 @@ export const WebSocketProvider = ({url, children}) => {
                 });
             }
         };
+        setWs(wsClient);
+
         wsClient.onclose = () => {
             console.log('Disconnected from the WebSocket server');
         };
 
-        wsClient.onerror = (error) => {
-            console.error(`WebSocket error: ${error}`);
+        wsClient.onerror = (e) => {
+            console.error(`WebSocket error: ${e}`);
         };
-
-        setWs(wsClient);
 
         return () => {
             wsClient.close();
@@ -91,7 +93,7 @@ export const WebSocketProvider = ({url, children}) => {
     }, [ws, reqIdCounter]);
 
     return (
-        <WebSocketContext.Provider value={{messages, closeConnection, sendMessage, ws, requests, error}}>
+        <WebSocketContext.Provider value={{messages, closeConnection, sendMessage, ws, requests}}>
             {children}
         </WebSocketContext.Provider>
 );
