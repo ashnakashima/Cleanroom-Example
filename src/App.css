@@ -14,3 +14,17 @@
   text-align: left;
   margin-top: 5px;
 }
+
+.teleSpin {
+  margin-right: 7px;
+  top: 2px;
+  animation: spin 8s infinite linear;
+}
+@keyframes spin {
+  from {
+    transform: scale(1) rotate(0deg);
+  }
+  to {
+    transform: scale(1) rotate(360deg);
+  }
+}

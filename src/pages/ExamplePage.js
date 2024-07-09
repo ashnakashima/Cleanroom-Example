@@ -9,7 +9,7 @@ import KeywordToFCheckbox from "../components/KeywordToFCheckbox";
 import DataContainer2Cols from "../components/DataContainer2Cols";
 import KeywordValueTable from "../components/KeywordValueTable";
 
-function EssentialFeatures(props) {
+function ExamplePage(props) {
 
     const allKeywordsMinusArrays = [ "pie.ANGLE", "pie.BOOLEAN", "pie.BURST", "pie.CACHED",
         "pie.DBL1000", "pie.DISPSTA", "pie.DISPSTOP", "pie.DOUBLE",
@@ -91,7 +91,7 @@ function EssentialFeatures(props) {
     return (
         <div style={{fontSize:10}}>
             <DataContainer2Cols
-                header={'Essential Components'}
+                header={'Example Page'}
                 contentTop={
                     <h2>
                         Can put stuff here ... using contentTop
@@ -127,4 +127,4 @@ function EssentialFeatures(props) {
     );
 }
 
-export default EssentialFeatures;
+export default ExamplePage;

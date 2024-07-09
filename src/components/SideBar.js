@@ -28,15 +28,14 @@ function SideBar({instrumentName }) {
                     <CDBSidebarMenu>
                         <NavLink to="/" className={({ isActive }) => (isActive ? 'activeClicked' : '')}>
                             <CDBSidebarMenuItem icon={'columns'}>
-                                {/*<FontAwesomeIcon icon={faColumns} style={{marginRight:'8px'}}/>*/}
                                 Home
                             </CDBSidebarMenuItem>
                         </NavLink>
-                        {/*<NavLink to="/alarms" className={({ isActive }) => (isActive ? 'activeClicked' : '')}>*/}
-                        {/*    <CDBSidebarMenuItem icon={'exclamation-circle'}>*/}
-                        {/*        Alarms*/}
-                        {/*    </CDBSidebarMenuItem>*/}
-                        {/*</NavLink>*/}
+                        <NavLink to="/examplepage" className={({ isActive }) => (isActive ? 'activeClicked' : '')}>
+                            <CDBSidebarMenuItem icon={'plus-circle'}>
+                                Example Page
+                            </CDBSidebarMenuItem>
+                        </NavLink>
 
                     </CDBSidebarMenu>
                 </CDBSidebarContent>

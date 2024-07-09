@@ -2,9 +2,8 @@ import './App.css';
 import {BrowserRouter, Routes, Route} from 'react-router-dom';
 import SideBar from './components/SideBar';
 import Home from './pages/Home';
-import Welcome from "./pages/Welcome";
 import {WebSocketProvider} from "./context/WebSocketContext";
-import EssentialFeatures from "./pages/EssentialFeatures";
+import ExamplePage from "./pages/ExamplePage";
 
 function App() {
 
@@ -17,7 +16,7 @@ function App() {
                   <div className='App flex-grow-1'>
                       <Routes>
                           <Route path="/" element={<Home />} />
-                          {/*<Route path="/alarms" element={<Welcome/>} />*/}
+                          <Route path="/examplepage" element={<ExamplePage/>} />
                       </Routes>
                   </div>
               </BrowserRouter>
