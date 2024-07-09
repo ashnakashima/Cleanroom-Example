@@ -1,10 +1,10 @@
 import './App.css';
 import {BrowserRouter, Routes, Route} from 'react-router-dom';
 import SideBar from './components/SideBar';
-import Home from './components/Home';
-import Alarms2 from "./components/Alarms2";
+import Home from './pages/Home';
+import Welcome from "./pages/Welcome";
 import {WebSocketProvider} from "./context/WebSocketContext";
-import EssentialFeatures from "./components/EssentialFeatures";
+import EssentialFeatures from "./pages/EssentialFeatures";
 
 function App() {
 
@@ -17,7 +17,7 @@ function App() {
                   <div className='App flex-grow-1'>
                       <Routes>
                           <Route path="/" element={<Home />} />
-                          <Route path="/alarms" element={<Alarms2/>} />
+                          {/*<Route path="/alarms" element={<Welcome/>} />*/}
                       </Routes>
                   </div>
               </BrowserRouter>

@@ -5,24 +5,24 @@ function DataContainer2Cols({header, contentTop, contentLeft, contentRight, cont
     const displayContent = () => {
         if(contentLeft && contentRight){
             return (
-                <>
+                <div style={{fontSize:10}}>
                     {contentTop}
                     <Row>
                         <Col>{contentLeft}</Col>
                         <Col> {contentRight}</Col>
                     </Row>
                     {contentBottom}
-                </>
+                </div>
             )
         }else{
             return (
-                <>
+                <div style={{fontSize:10}}>
                     {contentTop}
                     <Row>
                         <Col>{contentLeft}</Col>
                     </Row>
                     {contentBottom}
-                </>
+                </div>
             )
         }
     }

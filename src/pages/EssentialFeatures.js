@@ -1,13 +1,13 @@
 import React, {useState} from 'react';
-import KeywordButton from "./KeywordButton";
-import KeywordDropdownButton from "./KeywordDropdownButton";
-import KeywordForm from "./KeywordForm";
-import KeywordCheckbox from "./KeywordCheckbox";
+import KeywordButton from "../components/KeywordButton";
+import KeywordDropdownButton from "../components/KeywordDropdownButton";
+import KeywordForm from "../components/KeywordForm";
+import KeywordCheckbox from "../components/KeywordCheckbox";
 import {useWebSocket} from "../context/WebSocketContext";
-import DisplayKeywordValue from "./DisplayKeywordValue";
-import KeywordToFCheckbox from "./KeywordToFCheckbox";
-import DataContainer2Cols from "./DataContainer2Cols";
-import KeywordValueTable from "./KeywordValueTable";
+import DisplayKeywordValue from "../components/DisplayKeywordValue";
+import KeywordToFCheckbox from "../components/KeywordToFCheckbox";
+import DataContainer2Cols from "../components/DataContainer2Cols";
+import KeywordValueTable from "../components/KeywordValueTable";
 
 function EssentialFeatures(props) {
 

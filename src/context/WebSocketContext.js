@@ -24,7 +24,10 @@ export const WebSocketProvider = ({url, children}) => {
 
         wsClient.onopen = () => {
             // wsClient.send("-c&-jsonfragments&-prefix&-s&sca%");
-            wsClient.send("-c&-jsonfragments&-prefix&-s&pie&!&slow&!&%timeout");
+            // wsClient.send("-c&-jsonfragments&-prefix&-s&pie&!&slow&!&%timeout");
+            // ---- adjust serviceName ----
+            const serviceName = 'pie';
+            wsClient.send(`-c&-jsonfragments&-prefix&-s&${serviceName}`);
             console.log('Connection to WebSocket server');
 
         };

@@ -32,11 +32,11 @@ function SideBar({instrumentName }) {
                                 Home
                             </CDBSidebarMenuItem>
                         </NavLink>
-                        <NavLink to="/alarms" className={({ isActive }) => (isActive ? 'activeClicked' : '')}>
-                            <CDBSidebarMenuItem icon={'exclamation-circle'}>
-                                Alarms
-                            </CDBSidebarMenuItem>
-                        </NavLink>
+                        {/*<NavLink to="/alarms" className={({ isActive }) => (isActive ? 'activeClicked' : '')}>*/}
+                        {/*    <CDBSidebarMenuItem icon={'exclamation-circle'}>*/}
+                        {/*        Alarms*/}
+                        {/*    </CDBSidebarMenuItem>*/}
+                        {/*</NavLink>*/}
 
                     </CDBSidebarMenu>
                 </CDBSidebarContent>
