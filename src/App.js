@@ -12,7 +12,7 @@ function App() {
       <div className="App d-flex">
           <WebSocketProvider url='ws://scaleserver:8080/gshowd'>
               <BrowserRouter>
-                  <SideBar instrumentName={'SCALE'}/>
+                  <SideBar instrumentName={'INSTRUMENT NAME'}/>
                   <div className='App flex-grow-1'>
                       <Routes>
                           <Route path="/" element={<Home />} />

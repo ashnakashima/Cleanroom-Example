@@ -9,8 +9,7 @@ import {
     CDBSidebarMenuItem,
 } from 'cdbreact';
 import { NavLink } from 'react-router-dom';
-import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
-import {faColumns, faExclamationCircle, faUser} from "@fortawesome/free-solid-svg-icons";
+
 
 function SideBar({instrumentName }) {
 

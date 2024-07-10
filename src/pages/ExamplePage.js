@@ -5,7 +5,7 @@ import KeywordForm from "../components/KeywordForm";
 import KeywordCheckbox from "../components/KeywordCheckbox";
 import {useWebSocket} from "../context/WebSocketContext";
 import DisplayKeywordValue from "../components/DisplayKeywordValue";
-import KeywordToFCheckbox from "../components/KeywordToFCheckbox";
+import KeywordBoolCheckbox from "../components/KeywordBoolCheckbox";
 import DataContainer2Cols from "../components/DataContainer2Cols";
 import KeywordValueTable from "../components/KeywordValueTable";
 
@@ -34,10 +34,10 @@ function ExamplePage(props) {
             header={'More Features'}
             contentLeft={
                 <>
-                    <KeywordButton keyword={'pie.MIXED'} buttonValue={'update-using-button'} variant={'secondary'}/>
+                    <KeywordButton keyword={'pie.MIXED'} buttonValue={'update-using-button'} variant={'secondary'} makeConfirm={true}/>
                     <KeywordButton keyword={'pie.INTEGER'} buttonValue={'47'} variant={'secondary'}/>
                     <KeywordButton keyword={'pie.ODD'} buttonValue={'0'} variant={'danger'}/>
-                    <KeywordButton keyword={'pie.ODD'} buttonValue={'3'} variant={'primary'}/>
+                    <KeywordButton keyword={'pie.ODD'} buttonValue={'3'}/>
                 </>
             }
             contentRight={
@@ -64,16 +64,17 @@ function ExamplePage(props) {
             header={'Even More Features'}
             contentLeft={
                 <>
-                    <KeywordForm keyword={"pie.MIXED"} />
+                    <KeywordForm keyword={"pie.MIXED"} makeConfirm={true}/>
                     <KeywordForm keyword={"pie.FLOAT"} />
                     <KeywordForm keyword={"pie.ODD"} label={'Update ODD here: '}/>
                     <KeywordForm keyword={"pie.EVEN"} />
+                    <KeywordForm keyword={"pie.DBL1000"} />
                 </>
             }
             contentTop={
                 <>
-                    <KeywordDropdownButton keyword={'pie.STRING'} options={['option1', 'option2', 'option3']} />
-                    <KeywordToFCheckbox keyword={'pie.BOOLEAN'}/>
+                    <KeywordDropdownButton keyword={'pie.STRING'} options={['option1', 'option2', 'option3']} makeConfirm={true} />
+                    <KeywordBoolCheckbox keyword={'pie.BOOLEAN'} makeConfirm={true}/>
                 </>
             }
             contentBottom={

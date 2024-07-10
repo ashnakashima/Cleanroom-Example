@@ -2,7 +2,7 @@ import React, {useEffect} from 'react';
 import {useState} from "react";
 import {useWebSocket} from "../context/WebSocketContext";
 
-function KeywordForm({keyword, label}) {
+function KeywordForm({keyword, label, makeConfirm}) {
     const {sendMessage, messages} = useWebSocket();
     const defaultInput = "";
     const[bgColor, setBgColor] = useState("transparent");
@@ -30,7 +30,7 @@ function KeywordForm({keyword, label}) {
     const handleKeyDown = (e) => {
         if(e.key === 'Enter'){
             e.preventDefault();
-            const userConfirmed = window.confirm('Are you sure you want to adjust data?');
+            const userConfirmed = !makeConfirm || window.confirm(`Are you sure you want to adjust data?`);
             if(userConfirmed) {
                 performAction();
             }else{

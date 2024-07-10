@@ -1,7 +1,7 @@
 import React, {useEffect, useState} from 'react';
 import {useWebSocket} from "../context/WebSocketContext";
 
-function KeywordDropdownButton({label, keyword, options}) {
+function KeywordDropdownButton({label, keyword, options, makeConfirm}) {
     const {sendMessage, messages} = useWebSocket();
 
 
@@ -12,18 +12,22 @@ function KeywordDropdownButton({label, keyword, options}) {
         const message = messages.find((msg) => msg.key === keyword);
         if(message){
             setInitialOption(message.value);
+            setSelectedOption(message.value);
         }
     }, [keyword, messages]);
 
-    const handleSelectChange = (e) => {
-        const value = e.target.value;
-        setSelectedOption(value);
-        const message = { "type": "modify", "request_id": null, "key":keyword, "value":value};
-        sendMessage(message);
-    }
 
     const keyArray = keyword.split(".");
     let key = keyArray[1];
+    const handleSelectChange = (e) => {
+        const value = e.target.value;
+        const userConfirmed = !makeConfirm || window.confirm(`Confirm dropdown selection ${value} for ${key}: `);
+        if(userConfirmed){
+            setSelectedOption(value);
+            const message = { "type": "modify", "request_id": null, "key":keyword, "value":value};
+            sendMessage(message);
+        }
+    }
 
     return (
         <div  style={{fontSize:10, display:'block', margin:3}}>
@@ -33,7 +37,7 @@ function KeywordDropdownButton({label, keyword, options}) {
                 // style={{display:'block'}}
                 onChange={handleSelectChange}
                 id={keyword}
-                value={initialOption}
+                value={selectedOption}
             >
                 {options.map((value, index) => {
                     return(

@@ -1,15 +1,15 @@
 import React from 'react';
-import {Col, Container, Row} from "react-bootstrap";
-import ExamplePage from "./ExamplePage";
 import DataContainer2Cols from "../components/DataContainer2Cols";
-import '../App.css';
 
 function Home() {
     const welcomeTop =
-        <div style={{display:"block"}}>
-            {/* eslint-disable-next-line jsx-a11y/img-redundant-alt */}
-            <img className="teleSpin" src="https://cdn-icons-png.flaticon.com/512/196/196689.png" alt="telescope icon" style={{width:200, height:200, margin:20}}/>
-            <p> Edit src/pages/Home.js and save to reload. </p>
+        <div style={{display: "block"}}>
+            <img className="teleSpin" src="https://cdn-icons-png.flaticon.com/512/196/196689.png" alt="telescope icon"
+                 style={{width: 200, height: 200, margin: 20}}/>
+            <p> Edit src/pages/Home.js and reload. </p>
+            <a href="https://docs.google.com/document/d/1ZXb-GyRgDWFwtJJuHYQp73xIFHthu4LSulk-I-0lolg/edit?usp=sharing">
+                Learn React-WebKTL
+            </a>
         </div>
 
     return (

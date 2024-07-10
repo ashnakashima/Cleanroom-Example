@@ -3,27 +3,28 @@ import {Button} from "react-bootstrap";
 import {useWebSocket} from "../context/WebSocketContext";
 
 
-function KeywordButton({keyword, variant, label, buttonValue}) {
+function KeywordButton({keyword, variant, label, buttonValue, makeConfirm}) {
 
     const {sendMessage} = useWebSocket();
-    const [isLoading, setIsLoading] = useState(false);
 
-
-    const handleClick = () => {
-        setIsLoading(true);
-        setTimeout(() => setIsLoading(false), 1000);
-        const message = { "type": "modify", "request_id": null, "key": keyword, "value": buttonValue};
-        sendMessage(message);
-    }
 
     const keyArray = keyword.split(".");
     let key = keyArray[1];
+
+    const handleClick = () => {
+        const userConfirmed = !makeConfirm || window.confirm(`Confirm ${key} button click`);
+        if(userConfirmed){
+            const message = { "type": "modify", "request_id": null, "key": keyword, "value": buttonValue};
+            sendMessage(message);
+        }
+
+    }
 
     return (
         <div style={{margin:5}}>
             <Button
                 style={{fontSize: 8, margin: 2}}
-                variant={variant}
+                variant={variant ? variant : "secondary"}
                 id={keyword}
                 size="sm"
                 onClick={handleClick}
