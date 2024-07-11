@@ -40,22 +40,24 @@ export const WebSocketProvider = ({url, children}) => {
             let parsedMessage;
             try{
                 const oneMessage = message.data;
-                const processedData = oneMessage.replace(/\binf\b/g, '"Infinity"');
+                const processedData = oneMessage.replace(/\binf\b/g, '"∞"');
 
                 //console.log(`processedData: ${processedData}`)
                 parsedMessage = JSON.parse(processedData);
-                function convertInfinity(obj){
+                function convertParsedData(obj){
                     for(const key in obj){
                         if(obj[key] === "Infinity"){
                             obj[key] = Infinity;
-                            console.log(obj[key]);
-                        }else if(typeof obj[key] === 'object' && obj[key] !== null){
-                            convertInfinity(obj[key]);
+                        }else if(obj[key] === 0){
+                            obj[key] = '0';
+                        }else if(obj[key] === ""){
+                            obj[key] = " ";
+                        } else if(typeof obj[key] === 'object' && obj[key] !== null){
+                            convertParsedData(obj[key]);
                         }
                     }
                 }
-
-                convertInfinity(parsedMessage);
+                convertParsedData(parsedMessage);
 
                 if(parsedMessage.type && parsedMessage.request_id) {
                     if(parsedMessage.errcode !== "SUCCESS"){
