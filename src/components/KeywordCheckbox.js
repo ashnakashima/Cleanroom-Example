@@ -16,7 +16,7 @@ function KeywordCheckbox({keyword, label, options}){
             ? checkedList.filter((item) => item !== value)
             : [...checkedList, value];
             setCheckedList(updatedList);
-        const message = { "type": "modify", "request_id": null, "key":keyword, "value":checkedList};
+        const message = { "type": "modify", "request_id": null, "key":keyword, "value":updatedList};
         sendMessage(message);
     };
     const keyArray = keyword.split(".");
