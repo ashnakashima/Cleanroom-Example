@@ -1,4 +1,6 @@
 import React, {createContext, useState, useEffect, useCallback, useContext,} from "react";
+import {Alert} from "react-bootstrap";
+import {parse} from "@fortawesome/fontawesome-svg-core";
 
 const WebSocketContext = createContext(null);
 
@@ -6,8 +8,9 @@ export const WebSocketProvider = ({url, children}) => {
     const [messages, setMessages] = useState([]);
     const [ws, setWs] = useState(null);
     const [requests, setRequests] = useState([]);
-    // const [error, setError] = useState(null);
     const [reqIdCounter, setReqIdCounter] = useState(1);
+
+
 
 
     const closeConnection = useCallback(() => {
@@ -62,7 +65,11 @@ export const WebSocketProvider = ({url, children}) => {
                         alert(`${parsedMessage.errcode}`)
                         // console.log(`request: ${parsedMessage.request_id} was a ${parsedMessage.errcode}`)
                     )
+
+                    // setRequests((prevState) => prevState.filter(req => req.id !== parsedMessage.request_id));
+
                     setRequests((prevMessages) => [...prevMessages, parsedMessage]);
+                    // console.log(requests.length);
 
                 }
                 //console.log(requests.length)
@@ -113,8 +120,12 @@ export const WebSocketProvider = ({url, children}) => {
     const sendMessage = useCallback((message) => {
         if(ws && ws.readyState === WebSocket.OPEN){
             message.request_id = reqIdCounter;
+
+            // const sendRequest = { id: message.request_id };
+            // setRequests((prevState) => [...prevState, sendRequest]);
+
             setReqIdCounter(prevCounter => prevCounter + 1);
-            // console.log(`sending: ${JSON.stringify(message)}`)
+            console.log(`sending: ${JSON.stringify(message)}`)
             ws.send(JSON.stringify(message));
         }else{
             console.error("WebSocket is not open")

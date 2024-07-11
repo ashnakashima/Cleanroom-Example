@@ -1,13 +1,11 @@
-import React, {useState} from 'react';
+import React from 'react';
 import KeywordButton from "../components/KeywordButton";
 import KeywordDropdownButton from "../components/KeywordDropdownButton";
 import KeywordForm from "../components/KeywordForm";
-import KeywordCheckbox from "../components/KeywordCheckbox";
-import {useWebSocket} from "../context/WebSocketContext";
-import DisplayKeywordValue from "../components/DisplayKeywordValue";
 import KeywordBoolCheckbox from "../components/KeywordBoolCheckbox";
 import DataContainer2Cols from "../components/DataContainer2Cols";
 import KeywordValueTable from "../components/KeywordValueTable";
+import KeywordBoolSwitch from "../components/KeywordBoolSwitch";
 
 function ExamplePage(props) {
 
@@ -28,6 +26,7 @@ function ExamplePage(props) {
         "pie.DBL1000", "pie.DISPSTA", "pie.DISPSTOP", "pie.DOUBLE",
         "pie.ENUMERATED", "pie.EVEN", "pie.FAILURE", "pie.FIXED", "pie.FLOAT",
         "pie.INT_MIRROR", "pie.INTEGER", "pie.INTEGER64"]
+
 
     const features1 =
         <DataContainer2Cols
@@ -55,8 +54,6 @@ function ExamplePage(props) {
                 </>
             }
         >
-
-
         </DataContainer2Cols>
 
     const features2 =
@@ -75,6 +72,7 @@ function ExamplePage(props) {
                 <>
                     <KeywordDropdownButton keyword={'pie.STRING'} options={['option1', 'option2', 'option3']} makeConfirm={true} />
                     <KeywordBoolCheckbox keyword={'pie.BOOLEAN'} makeConfirm={true}/>
+                    <KeywordBoolSwitch keyword={'pie.BOOLEAN'} makeConfirm={true}/>
                 </>
             }
             contentBottom={
@@ -88,15 +86,30 @@ function ExamplePage(props) {
 
         >
         </DataContainer2Cols>
+    const carouselContents = [
+        <DataContainer2Cols
+            contentLeft={
+            <>
+                <KeywordDropdownButton keyword={'pie.STRING'} options={['option1', 'option2', 'option3']} makeConfirm={true} />
+                <KeywordBoolCheckbox keyword={'pie.BOOLEAN'} makeConfirm={true}/>
+                <KeywordBoolSwitch keyword={'pie.BOOLEAN'} makeConfirm={true}/>
+            </>}
+            contentRight={
+            <>
+                <KeywordDropdownButton keyword={'pie.STRING'} options={['option1', 'option2', 'option3']} makeConfirm={true} />
+                <KeywordBoolCheckbox keyword={'pie.BOOLEAN'} makeConfirm={true}/>
+                <KeywordBoolSwitch keyword={'pie.BOOLEAN'} makeConfirm={true}/>
+            </>}
+        />
+    ]
 
     return (
         <div style={{fontSize:10}}>
+
             <DataContainer2Cols
                 header={'Example Page'}
                 contentTop={
-                    <h2>
-                        Can put stuff here ... using contentTop
-                    </h2>
+                    <h2> Can put more stuff here... using contentTop </h2>
                 }
                 contentLeft={<DataContainer2Cols
                     header={'Features'}
