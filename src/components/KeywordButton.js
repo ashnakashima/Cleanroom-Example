@@ -5,7 +5,7 @@ import {useWebSocket} from "../context/WebSocketContext";
 
 function KeywordButton({keyword, variant, label, buttonValue, makeConfirm}) {
 
-    const {sendMessage} = useWebSocket();
+    const {sendMessage, reqIdCounter} = useWebSocket();
 
 
     const keyArray = keyword.split(".");
@@ -14,7 +14,7 @@ function KeywordButton({keyword, variant, label, buttonValue, makeConfirm}) {
     const handleClick = () => {
         const userConfirmed = !makeConfirm || window.confirm(`Confirm ${key} button click`);
         if(userConfirmed){
-            const message = { "type": "modify", "request_id": null, "key": keyword, "value": buttonValue};
+            const message = { "type": "modify", "request_id": reqIdCounter, "key": keyword, "value": buttonValue};
             sendMessage(message);
         }
 
@@ -25,7 +25,7 @@ function KeywordButton({keyword, variant, label, buttonValue, makeConfirm}) {
             <Button
                 style={{fontSize: 8, margin: 2}}
                 variant={variant ? variant : "secondary"}
-                id={keyword}
+                id={`${keyword}-button`}
                 size="sm"
                 onClick={handleClick}
                 type="button"

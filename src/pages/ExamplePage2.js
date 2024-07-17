@@ -28,9 +28,7 @@ function ExamplePage2(props) {
                 </>}
             contentRight={
                 <>
-                    <KeywordDropdownButton keyword={'pie.STRING'} options={['option1', 'option2', 'option3']} makeConfirm={true} />
-                    <KeywordBoolCheckbox keyword={'pie.BOOLEAN'} makeConfirm={true}/>
-                    <KeywordBoolSwitch keyword={'pie.BOOLEAN'} makeConfirm={true}/>
+                    <KeywordDropdownButton keyword={'pie.MIXED'} options={['option1', 'option2', 'option3']} makeConfirm={true} />
                     <DisplayKeywordValue keyword={'pie.MIXED'} />
                     <DisplayKeywordValue keyword={'pie.FAILURE'} />
 

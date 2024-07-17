@@ -1,6 +1,4 @@
 import React, {createContext, useState, useEffect, useCallback, useContext,} from "react";
-import {Alert} from "react-bootstrap";
-import {parse} from "@fortawesome/fontawesome-svg-core";
 
 const WebSocketContext = createContext(null);
 
@@ -10,16 +8,11 @@ export const WebSocketProvider = ({url, children}) => {
     const [requests, setRequests] = useState([]);
     const [reqIdCounter, setReqIdCounter] = useState(1);
 
-
-
-
     const closeConnection = useCallback(() => {
         if (ws) {
             ws.close();
         }
     }, [ws]);
-
-
 
     useEffect(() => {
 
@@ -40,7 +33,7 @@ export const WebSocketProvider = ({url, children}) => {
             let parsedMessage;
             try{
                 const oneMessage = message.data;
-                const processedData = oneMessage.replace(/\binf\b/g, '"∞"');
+                const processedData = oneMessage.replace(/\binf\b/g, '"inf"');
 
                 //console.log(`processedData: ${processedData}`)
                 parsedMessage = JSON.parse(processedData);
@@ -61,16 +54,17 @@ export const WebSocketProvider = ({url, children}) => {
 
                 if(parsedMessage.type && parsedMessage.request_id) {
                     if(parsedMessage.errcode !== "SUCCESS"){
-                        alert(`Error: ${parsedMessage.msg}`)
+                        alert(`ERROR: ${parsedMessage.msg}`)
                         // console.log(`request: ${parsedMessage.request_id}  error: ${parsedMessage.msg}`)
                     }else(
-                        alert(`${parsedMessage.errcode}`)
-                        // console.log(`request: ${parsedMessage.request_id} was a ${parsedMessage.errcode}`)
+                        // alert(`${parsedMessage.errcode}`)
+                        console.log(`request: ${parsedMessage.request_id} was a ${parsedMessage.errcode}`)
                     )
+
 
                     // setRequests((prevState) => prevState.filter(req => req.id !== parsedMessage.request_id));
 
-                    setRequests((prevMessages) => [...prevMessages, parsedMessage]);
+                    // setRequests((prevMessages) => [...prevMessages, parsedMessage]);
                     // console.log(requests.length);
 
                 }
@@ -121,21 +115,24 @@ export const WebSocketProvider = ({url, children}) => {
 
     const sendMessage = useCallback((message) => {
         if(ws && ws.readyState === WebSocket.OPEN){
-            message.request_id = reqIdCounter;
+            // message.request_id = reqIdCounter;
 
-            // const sendRequest = { id: message.request_id };
-            // setRequests((prevState) => [...prevState, sendRequest]);
-
+            // setRequests((prevState) => [...prevState, { id: message.request_id, isLoading:true }]);
             setReqIdCounter(prevCounter => prevCounter + 1);
-            console.log(`sending: ${JSON.stringify(message)}`)
-            ws.send(JSON.stringify(message));
+
+            setTimeout(() => {
+                console.log(`sending: ${JSON.stringify(message)}`)
+                ws.send(JSON.stringify(message));
+            }, 2000);
+            // console.log(`sending: ${JSON.stringify(message)}`)
+            // ws.send(JSON.stringify(message));
         }else{
             console.error("WebSocket is not open")
         }
-    }, [ws, reqIdCounter]);
+    }, [ws]);
 
     return (
-        <WebSocketContext.Provider value={{messages, closeConnection, sendMessage, ws, requests}}>
+        <WebSocketContext.Provider value={{messages, closeConnection, sendMessage, ws, requests, reqIdCounter}}>
             {children}
         </WebSocketContext.Provider>
 );

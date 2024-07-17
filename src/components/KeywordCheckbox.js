@@ -4,7 +4,7 @@ import {useWebSocket} from "../context/WebSocketContext";
 function KeywordCheckbox({keyword, label, options}){
 
     const [checkedList, setCheckedList] = useState([]);
-    const {sendMessage} = useWebSocket();
+    const {sendMessage, reqIdCounter} = useWebSocket();
 
 
     // checkedHandler function
@@ -16,7 +16,7 @@ function KeywordCheckbox({keyword, label, options}){
             ? checkedList.filter((item) => item !== value)
             : [...checkedList, value];
             setCheckedList(updatedList);
-        const message = { "type": "modify", "request_id": null, "key":keyword, "value":updatedList};
+        const message = { "type": "modify", "request_id": reqIdCounter, "key":keyword, "value":updatedList};
         sendMessage(message);
     };
     const keyArray = keyword.split(".");

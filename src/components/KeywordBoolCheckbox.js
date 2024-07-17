@@ -2,7 +2,7 @@ import React, {useEffect, useState} from 'react';
 import {useWebSocket} from "../context/WebSocketContext";
 
 function KeywordBoolCheckbox({keyword, label, makeConfirm}) {
-    const {sendMessage, messages} = useWebSocket();
+    const {sendMessage, messages, reqIdCounter} = useWebSocket();
     const [isChecked, setIsChecked] = useState(false);
 
     useEffect(() => {
@@ -27,7 +27,7 @@ function KeywordBoolCheckbox({keyword, label, makeConfirm}) {
         if(userConfirmed){
             const newChecked = !isChecked
             setIsChecked(newChecked);
-            const message = { "type": "modify", "request_id": null, "key":keyword, "value":newChecked ? 'True' : 'False'};
+            const message = { "type": "modify", "request_id": reqIdCounter, "key":keyword, "value":newChecked ? 'True' : 'False'};
             sendMessage(message);
         }
 
@@ -38,13 +38,14 @@ function KeywordBoolCheckbox({keyword, label, makeConfirm}) {
             type="checkbox"
             onChange={handleChecked}
             checked={isChecked}
+            id={`${keyword}-bool-check`}
         />
     );
 
 
     return (
         <div style={{fontSize: 10, margin:5}}>
-            <label>
+            <label >
             {label ? label : `${key}: `}
                 {displayBox()}
             </label>
