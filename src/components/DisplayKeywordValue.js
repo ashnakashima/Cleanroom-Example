@@ -1,8 +1,8 @@
 import React, {useEffect, useState} from 'react';
-import {useWebSocket} from "../context/WebSocketContext";
+import {useWebSocket1} from "../context/WebSocketProviders";
 
 function DisplayKeywordValue({keyword}) {
-    const {messages} = useWebSocket();
+    const {messages} = useWebSocket1();
     const [value, setValue] = useState(null);
 
     useEffect(() => {

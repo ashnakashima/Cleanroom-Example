@@ -1,10 +1,11 @@
 import React, {useEffect, useState} from 'react';
-import {useWebSocket} from "../context/WebSocketContext";
 import {Table} from "react-bootstrap";
+import {useWebSocket1} from "../context/WebSocketProviders";
 
 function KeywordValueTable({ keywordList }) {
-    const { messages } = useWebSocket();
+    const { messages, metadata } = useWebSocket1();
     const [values, setValues] = useState({});
+
 
     useEffect(() => {
         const newValues = {};
@@ -15,6 +16,15 @@ function KeywordValueTable({ keywordList }) {
         });
         setValues(newValues);
     }, [messages, keywordList]);
+
+    const getRemarks = (keyword) => {
+        if(metadata[keyword]) {
+            return metadata[keyword].remarks;
+;        }else {
+            return "Keyword not found";
+        }
+    }
+
 
     return (
         <div className='key-value-table'>

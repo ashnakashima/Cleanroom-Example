@@ -1,12 +1,13 @@
 import React, {useEffect, useState} from 'react';
 import {useWebSocket} from "../context/WebSocketContext";
 import {Form, FormLabel} from "react-bootstrap";
+import {useWebSocket1} from "../context/WebSocketProviders";
 
 function KeywordBoolSwitch({keyword, label, makeConfirm}) {
     const keyArray = keyword.split(".");
     let key = keyArray[1];
 
-    const {sendMessage, messages, reqIdCounter} = useWebSocket();
+    const {sendMessage, messages} = useWebSocket1();
     const [isSwitchOn, setIsSwitchOn] = useState(false);
 
     useEffect(() => {
@@ -27,7 +28,7 @@ function KeywordBoolSwitch({keyword, label, makeConfirm}) {
         if(userConfirmed){
             const newSwich = !isSwitchOn;
             setIsSwitchOn(newSwich);
-            const message = { "type": "modify", "request_id": reqIdCounter, "key":keyword, "value":newSwich ? '1' : '0'};
+            const message = { "type": "modify", "request_id": null, "key":keyword, "value":newSwich ? '1' : '0'};
             sendMessage(message);
 
         }

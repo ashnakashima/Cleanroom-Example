@@ -1,17 +1,16 @@
-import React, {useState} from 'react';
-import KeywordButton from "../components/KeywordButton";
+import React from 'react';
 import KeywordDropdownButton from "../components/KeywordDropdownButton";
-import KeywordForm from "../components/KeywordForm";
 import KeywordCheckbox from "../components/KeywordCheckbox";
-import {useWebSocket} from "../context/WebSocketContext";
 import DisplayKeywordValue from "../components/DisplayKeywordValue";
 import KeywordBoolCheckbox from "../components/KeywordBoolCheckbox";
 import DataContainer2Cols from "../components/DataContainer2Cols";
 import KeywordValueTable from "../components/KeywordValueTable";
 import KeywordBoolSwitch from "../components/KeywordBoolSwitch";
 import DataContainerCarousel from "../components/DataContainerCarousel";
+import KeywordHistoryPlot from "../components/KeywordHistoryPlot";
 
 function ExamplePage2(props) {
+
 
     const evenSmallerKeywordList = ["pie.SEQUENCE_STRING", "pie.SLOW", "pie.STRING", "pie.STUTTER", "pie.TIMED", "pie.UPTIME",
         "pie.VERSION", "pie.WRITE_TIMEOUT"]
@@ -39,14 +38,15 @@ function ExamplePage2(props) {
 
     return (
         <div style={{fontSize:10}}>
-
             <DataContainer2Cols
                 header={'Experimenting Page'}
                 contentTop={
+                    <KeywordHistoryPlot keywords={'K_BENCH_LR K_COLDHEAD K_SENSOR2K3'} title={"Leskar Box Temperatures"}/>
+                }
+                contentBottom={
                     <DataContainerCarousel header="CAROUSEL" contents={carouselContents}/>
                 }
             />
-
         </div>
     );
 }

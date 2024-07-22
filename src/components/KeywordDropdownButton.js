@@ -1,8 +1,9 @@
 import React, {useEffect, useState} from 'react';
 import {useWebSocket} from "../context/WebSocketContext";
+import {useWebSocket1} from "../context/WebSocketProviders";
 
 function KeywordDropdownButton({label, keyword, options, makeConfirm}) {
-    const {sendMessage, messages, reqIdCounter} = useWebSocket();
+    const {sendMessage, messages} = useWebSocket1();
 
 
     const [selectedOption, setSelectedOption] = useState('');
@@ -24,7 +25,7 @@ function KeywordDropdownButton({label, keyword, options, makeConfirm}) {
         const userConfirmed = !makeConfirm || window.confirm(`Confirm dropdown selection ${value} for ${key}: `);
         if(userConfirmed){
             setSelectedOption(value);
-            const message = { "type": "modify", "request_id": reqIdCounter, "key":keyword, "value":value};
+            const message = { "type": "modify", "request_id": null, "key":keyword, "value":value};
             sendMessage(message);
         }
     }

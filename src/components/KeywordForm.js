@@ -2,14 +2,14 @@ import React, {useCallback, useEffect} from 'react';
 import {useState} from "react";
 import {useWebSocket} from "../context/WebSocketContext";
 import LoadingSpinner from "./LoadingSpinner";
+import {useWebSocket1} from "../context/WebSocketProviders";
 
 function KeywordForm({keyword, label, makeConfirm}) {
-    const {sendMessage, messages, reqIdCounter, requests} = useWebSocket();
+    const {sendMessage, messages} = useWebSocket1();
     const defaultInput = "";
     const[bgColor, setBgColor] = useState("transparent");
     const [input, setInput] = useState("");
     const [initialInput, setInitialInput] = useState('');
-    const [innerRequests, setInnerRequests] = useState([]);
 
 
     useEffect(() => {
@@ -18,6 +18,7 @@ function KeywordForm({keyword, label, makeConfirm}) {
             setInitialInput(message.value);
         }
     }, [keyword, messages]);
+
 
 
 
@@ -45,11 +46,10 @@ function KeywordForm({keyword, label, makeConfirm}) {
 
     const performAction = useCallback(() => {
         setBgColor('transparent');
-        const message = { "type": "modify", "request_id": reqIdCounter, "key":keyword, "value":input};
+        const message = { "type": "modify", "request_id": null, "key":keyword, "value":input};
         sendMessage(message);
-        setInnerRequests((prevState) => [...prevState, {id: reqIdCounter}]);
         // put code for modifying here
-    }, [input, keyword, reqIdCounter, sendMessage])
+    }, [input, keyword, sendMessage])
 
     const keyArray = keyword.split(".");
     let key = keyArray[1];

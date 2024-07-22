@@ -1,10 +1,11 @@
 import React, {useState} from 'react';
 import {useWebSocket} from "../context/WebSocketContext";
+import {useWebSocket1} from "../context/WebSocketProviders";
 
 function KeywordCheckbox({keyword, label, options}){
 
     const [checkedList, setCheckedList] = useState([]);
-    const {sendMessage, reqIdCounter} = useWebSocket();
+    const {sendMessage} = useWebSocket1();
 
 
     // checkedHandler function
@@ -16,7 +17,7 @@ function KeywordCheckbox({keyword, label, options}){
             ? checkedList.filter((item) => item !== value)
             : [...checkedList, value];
             setCheckedList(updatedList);
-        const message = { "type": "modify", "request_id": reqIdCounter, "key":keyword, "value":updatedList};
+        const message = { "type": "modify", "request_id": null, "key":keyword, "value":updatedList};
         sendMessage(message);
     };
     const keyArray = keyword.split(".");

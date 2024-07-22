@@ -6,13 +6,16 @@ import {WebSocketProvider} from "./context/WebSocketContext";
 import ExamplePage from "./pages/ExamplePage";
 import ExamplePage2 from "./pages/ExamplePage2";
 import NotFound from "./pages/NotFound";
+import PlotCommand from "./components/PlotCommand";
+import {WebSocketProvider1, WebSocketProvider2} from "./context/WebSocketProviders";
 
 function App() {
 
 
   return (
       <div className="App d-flex">
-          <WebSocketProvider url='ws://scaleserver:8080/gshowd'>
+
+          <WebSocketProvider1 url='ws://scaleserver:8080/gshowd' command='-c&-jsonsingle&-prefix&-s&pie&+attr'>
               <BrowserRouter>
                   <SideBar instrumentName={'INSTRUMENT NAME'}/>
                   <div className='App flex-grow-1'>
@@ -24,7 +27,10 @@ function App() {
                       </Routes>
                   </div>
               </BrowserRouter>
-          </WebSocketProvider>
+          </WebSocketProvider1>
+          {/*<WebSocketProvider2 url='ws://scaleserver:8080/gshowd'>*/}
+
+          {/*</WebSocketProvider2>*/}
       </div>
   );
 }

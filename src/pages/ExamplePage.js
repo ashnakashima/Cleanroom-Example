@@ -6,6 +6,7 @@ import KeywordBoolCheckbox from "../components/KeywordBoolCheckbox";
 import DataContainer2Cols from "../components/DataContainer2Cols";
 import KeywordValueTable from "../components/KeywordValueTable";
 import KeywordBoolSwitch from "../components/KeywordBoolSwitch";
+import KeywordHistoryPlot from "../components/KeywordHistoryPlot"
 
 function ExamplePage(props) {
 
@@ -105,7 +106,6 @@ function ExamplePage(props) {
 
     return (
         <div style={{fontSize:10}}>
-
             <DataContainer2Cols
                 header={'Example Page'}
                 contentTop={
@@ -136,6 +136,7 @@ function ExamplePage(props) {
                     <h2> Can put more stuff here... using contentBottom </h2>
                 }
             />
+            <KeywordHistoryPlot keywords="K_BENCH_LR K_COLDHEAD K_CU_BLOCK K_GETTER K_L_BRACKET K_LDT_MOT K_LL_FRAME K_LWH_MOT K_RADSHIELD K_RIGHTFILTSET K_UL_FRAME" title='Lesker Box Temperatures'/>
 
         </div>
     );

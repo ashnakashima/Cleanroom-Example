@@ -61,14 +61,7 @@ export const WebSocketProvider = ({url, children}) => {
                         console.log(`request: ${parsedMessage.request_id} was a ${parsedMessage.errcode}`)
                     )
 
-
-                    // setRequests((prevState) => prevState.filter(req => req.id !== parsedMessage.request_id));
-
-                    // setRequests((prevMessages) => [...prevMessages, parsedMessage]);
-                    // console.log(requests.length);
-
                 }
-                //console.log(requests.length)
                 else if(parsedMessage.key && parsedMessage.value){
                     setMessages((prevMessages) => {
                         // Check if parsedMessage is already in prevMessages
@@ -89,14 +82,6 @@ export const WebSocketProvider = ({url, children}) => {
             } catch(error) {
                 console.error(`Error parsing JSON: `, error);
             }
-
-            // const parsedMessage = JSON.parse(message.data);
-
-
-            // console.log(parsedMessage)
-            //console.log(`Received message: ${parsedMessage.key} : ${parsedMessage.value}`);
-
-
         };
         setWs(wsClient);
 
@@ -117,7 +102,7 @@ export const WebSocketProvider = ({url, children}) => {
         if(ws && ws.readyState === WebSocket.OPEN){
             // message.request_id = reqIdCounter;
 
-            // setRequests((prevState) => [...prevState, { id: message.request_id, isLoading:true }]);
+            setRequests((prevState) => [...prevState, { id: message.request_id, isLoading:true }]);
             setReqIdCounter(prevCounter => prevCounter + 1);
 
             setTimeout(() => {
@@ -127,12 +112,20 @@ export const WebSocketProvider = ({url, children}) => {
             // console.log(`sending: ${JSON.stringify(message)}`)
             // ws.send(JSON.stringify(message));
         }else{
+            alert("WebSocket is not open")
             console.error("WebSocket is not open")
         }
     }, [ws]);
 
+    const createPlotConnection = useCallback((message) => {
+        if(ws && ws.readyState === WebSocket.OPEN){
+            const wsClient = new WebSocket(url);
+            wsClient.send(message);
+        }
+    }, [url, ws])
+
     return (
-        <WebSocketContext.Provider value={{messages, closeConnection, sendMessage, ws, requests, reqIdCounter}}>
+        <WebSocketContext.Provider value={{messages, closeConnection, sendMessage, ws, requests, reqIdCounter, createPlotConnection}}>
             {children}
         </WebSocketContext.Provider>
 );

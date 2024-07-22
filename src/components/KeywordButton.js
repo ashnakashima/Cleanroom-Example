@@ -1,11 +1,12 @@
 import React, {useEffect, useState} from 'react';
 import {Button} from "react-bootstrap";
 import {useWebSocket} from "../context/WebSocketContext";
+import {useWebSocket1} from "../context/WebSocketProviders";
 
 
 function KeywordButton({keyword, variant, label, buttonValue, makeConfirm}) {
 
-    const {sendMessage, reqIdCounter} = useWebSocket();
+    const {sendMessage} = useWebSocket1();
 
 
     const keyArray = keyword.split(".");
@@ -14,7 +15,7 @@ function KeywordButton({keyword, variant, label, buttonValue, makeConfirm}) {
     const handleClick = () => {
         const userConfirmed = !makeConfirm || window.confirm(`Confirm ${key} button click`);
         if(userConfirmed){
-            const message = { "type": "modify", "request_id": reqIdCounter, "key": keyword, "value": buttonValue};
+            const message = { "type": "modify", "request_id": null, "key": keyword, "value": buttonValue};
             sendMessage(message);
         }
 
