@@ -1,7 +1,5 @@
 import React, {useCallback, useEffect} from 'react';
 import {useState} from "react";
-import {useWebSocket} from "../context/WebSocketContext";
-import LoadingSpinner from "./LoadingSpinner";
 import {useWebSocket1} from "../context/WebSocketProviders";
 
 function KeywordForm({keyword, label, makeConfirm}) {

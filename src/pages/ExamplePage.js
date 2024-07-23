@@ -7,14 +7,14 @@ import DataContainer2Cols from "../components/DataContainer2Cols";
 import KeywordValueTable from "../components/KeywordValueTable";
 import KeywordBoolSwitch from "../components/KeywordBoolSwitch";
 import KeywordHistoryPlot from "../components/KeywordHistoryPlot"
+import DataContainerCarousel from "../components/DataContainerCarousel";
+import KeywordCheckbox from "../components/KeywordCheckbox";
+import DisplayKeywordValue from "../components/DisplayKeywordValue";
 
 function ExamplePage(props) {
 
-    const allKeywordsMinusArrays = [ "pie.ANGLE", "pie.BOOLEAN", "pie.BURST", "pie.CACHED",
-        "pie.DBL1000", "pie.DISPSTA", "pie.DISPSTOP", "pie.DOUBLE",
-        "pie.ENUMERATED", "pie.EVEN", "pie.FAILURE", "pie.FIXED", "pie.FLOAT",
-        "pie.INT_MIRROR", "pie.INTEGER", "pie.INTEGER64",
-        "pie.MASK", "pie.MIXED", "pie.ODD", "pie.PIEERR", "pie.PIEMSG", "pie.RANDOM_BOOLEAN",
+    const allKeywordsMinusArrays = ["pie.MASK", "pie.MIXED", "pie.ODD", "pie.PIEERR",
+        "pie.PIEMSG", "pie.RANDOM_BOOLEAN",
         "pie.RANDOM_DOUBLE", "pie.RANDOM_ENUMERATED", "pie.RANDOM_FLOAT",
         "pie.RANDOM_INTEGER",  "pie.RANDOM_MASK",
         "pie.RANDOM_STRING", "pie.READ_TIMEOUT", "pie.SEQUENCE_BOOLEAN", "pie.SEQUENCE_DOUBLE",
@@ -27,6 +27,9 @@ function ExamplePage(props) {
         "pie.DBL1000", "pie.DISPSTA", "pie.DISPSTOP", "pie.DOUBLE",
         "pie.ENUMERATED", "pie.EVEN", "pie.FAILURE", "pie.FIXED", "pie.FLOAT",
         "pie.INT_MIRROR", "pie.INTEGER", "pie.INTEGER64"]
+
+    const evenSmallerKeywordList = ["pie.ANGLE", "pie.BOOLEAN", "pie.BURST", "pie.CACHED",
+        "pie.DBL1000"]
 
 
     const features1 =
@@ -90,18 +93,21 @@ function ExamplePage(props) {
     const carouselContents = [
         <DataContainer2Cols
             contentLeft={
-            <>
-                <KeywordDropdownButton keyword={'pie.STRING'} options={['option1', 'option2', 'option3']} makeConfirm={true} />
-                <KeywordBoolCheckbox keyword={'pie.BOOLEAN'} makeConfirm={true}/>
-                <KeywordBoolSwitch keyword={'pie.BOOLEAN'} makeConfirm={true}/>
-            </>}
+                <>
+                    <KeywordDropdownButton keyword={'pie.STRING'} options={['option1', 'option2', 'option3']} makeConfirm={true} />
+                    <KeywordBoolCheckbox keyword={'pie.BOOLEAN'} makeConfirm={true}/>
+                    <KeywordBoolSwitch keyword={'pie.BOOLEAN'} makeConfirm={true}/>
+                    <KeywordCheckbox keyword={'pie.MIXED'} options={['fooC', 'pooC', 'vooC']} makeConfirm={true} />
+                </>}
             contentRight={
-            <>
-                <KeywordDropdownButton keyword={'pie.STRING'} options={['option1', 'option2', 'option3']} makeConfirm={true} />
-                <KeywordBoolCheckbox keyword={'pie.BOOLEAN'} makeConfirm={true}/>
-                <KeywordBoolSwitch keyword={'pie.BOOLEAN'} makeConfirm={true}/>
-            </>}
-        />
+                <>
+                    <KeywordDropdownButton keyword={'pie.MIXED'} options={['option1', 'option2', 'option3']} makeConfirm={true} />
+                    <DisplayKeywordValue keyword={'pie.MIXED'} />
+                    <DisplayKeywordValue keyword={'pie.FAILURE'} />
+
+                </>}
+        />,
+        <KeywordValueTable keywordList={evenSmallerKeywordList}/>
     ]
 
     return (
@@ -133,10 +139,11 @@ function ExamplePage(props) {
                     contentLeft={<KeywordValueTable keywordList={allKeywordsMinusArrays} />}
                 />}
                 contentBottom={
-                    <h2> Can put more stuff here... using contentBottom </h2>
+                    <DataContainerCarousel header="CAROUSEL" contents={carouselContents}/>
                 }
             />
-            <KeywordHistoryPlot keywords="K_BENCH_LR K_COLDHEAD K_CU_BLOCK K_GETTER K_L_BRACKET K_LDT_MOT K_LL_FRAME K_LWH_MOT K_RADSHIELD K_RIGHTFILTSET K_UL_FRAME" title='Lesker Box Temperatures'/>
+            <KeywordHistoryPlot url='ws://scaleserver:8080/gshowd' serviceName='scagilent' keywords="K_BENCH_LR K_COLDHEAD K_CU_BLOCK K_GETTER K_L_BRACKET K_LDT_MOT
+            K_LL_FRAME K_LWH_MOT K_RADSHIELD K_RIGHTFILTSET K_UL_FRAME" title='Lesker Box Temperatures'/>
 
         </div>
     );

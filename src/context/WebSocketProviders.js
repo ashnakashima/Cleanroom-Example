@@ -82,8 +82,11 @@ const handleMessageSocket2 = (message, setMessages, setMetadata) => {
     };
 
     const isError = (message) => {
-        if(message.trim().startsWith('{ "error":')){
-            return true
+        try{
+            const errorMessage = JSON.parse(message);
+            return Boolean(errorMessage.error)
+        }catch(e){
+            return false;
         }
     }
 
@@ -116,8 +119,9 @@ const handleMessageSocket2 = (message, setMessages, setMetadata) => {
     try {
         const oneMessage = message.data;
         if(isError(oneMessage)){
-            alert(oneMessage);
+            alert(`Error: ${JSON.parse(oneMessage).error}`)
         }
+
         if(isValidJSON(oneMessage)){
             parsedMessage = JSON.parse(newStr);
             if(parsedMessage.keywords){

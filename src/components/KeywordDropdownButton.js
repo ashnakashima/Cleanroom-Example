@@ -1,5 +1,4 @@
 import React, {useEffect, useState} from 'react';
-import {useWebSocket} from "../context/WebSocketContext";
 import {useWebSocket1} from "../context/WebSocketProviders";
 
 function KeywordDropdownButton({label, keyword, options, makeConfirm}) {

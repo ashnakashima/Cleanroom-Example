@@ -1,5 +1,4 @@
 import React, {useState} from 'react';
-import {useWebSocket} from "../context/WebSocketContext";
 import {useWebSocket1} from "../context/WebSocketProviders";
 
 function KeywordCheckbox({keyword, label, options}){

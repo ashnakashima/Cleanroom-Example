@@ -1,5 +1,4 @@
 import React, {useEffect, useState} from 'react';
-import {useWebSocket} from "../context/WebSocketContext";
 import {useWebSocket1} from "../context/WebSocketProviders";
 
 function KeywordBoolCheckbox({keyword, label, makeConfirm}) {

@@ -16,7 +16,7 @@ function SideBar({instrumentName }) {
 
     return (
         <div style={{display: 'flex', overflow: 'scroll initial', height:"100vh"}}>
-            <CDBSidebar textColor="#fff" backgroundColor="#333">
+            <CDBSidebar textColor="#fff" backgroundColor="#333" breakpoint={1}>
                 <CDBSidebarHeader prefix={<i className="fa fa-bars fa-large"></i>}>
                     <a href="/" className="text-decoration-none" style={{color: 'inherit'}}>
                         {instrumentName}
@@ -26,7 +26,7 @@ function SideBar({instrumentName }) {
                 <CDBSidebarContent className="sidebar-content">
                     <CDBSidebarMenu>
                         <NavLink to="/" className={({ isActive }) => (isActive ? 'activeClicked' : '')}>
-                            <CDBSidebarMenuItem icon={'columns'}>
+                            <CDBSidebarMenuItem icon={'th-large'}>
                                 Home
                             </CDBSidebarMenuItem>
                         </NavLink>
