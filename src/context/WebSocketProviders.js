@@ -4,6 +4,7 @@ import createWebSocketContext from './createWebSocketContext';
 const handleMessageSocket1 = (message, setMessages, setMetadata) => {
     let parsedMessage;
     try {
+
         const oneMessage = message.data;
         const processedData = oneMessage.replace(/\binf\b/g, '"inf"');
         parsedMessage = JSON.parse(processedData);
@@ -81,15 +82,6 @@ const handleMessageSocket2 = (message, setMessages, setMetadata) => {
         return Math.abs(value) >= absurdThreshold;
     };
 
-    const isError = (message) => {
-        try{
-            const errorMessage = JSON.parse(message);
-            return Boolean(errorMessage.error)
-        }catch(e){
-            return false;
-        }
-    }
-
     const gatherPlotData = (data) => {
         data.forEach(entry => {
             const time = entry.time;
@@ -113,6 +105,14 @@ const handleMessageSocket2 = (message, setMessages, setMetadata) => {
                 return updatedMessages.filter(item => item.x.length > 0 && item.y.length > 0); // Filter out empty x or y arrays
             });
         })
+    }
+    const isError = (message) => {
+        try{
+            const errorMessage = JSON.parse(message);
+            return Boolean(errorMessage.error)
+        }catch(e){
+            return false;
+        }
     }
 
     let parsedMessage;

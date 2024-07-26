@@ -9,6 +9,7 @@ import {
     CDBSidebarMenuItem,
 } from 'cdbreact';
 import { NavLink } from 'react-router-dom';
+import autosize from "plotly.js/src/plots/layout_attributes";
 
 
 function SideBar({instrumentName }) {
@@ -16,7 +17,7 @@ function SideBar({instrumentName }) {
 
     return (
         <div style={{display: 'flex', overflow: 'scroll initial', height:"100vh"}}>
-            <CDBSidebar textColor="#fff" backgroundColor="#333" breakpoint={1}>
+            <CDBSidebar textColor="#fff" backgroundColor="#333" breakpoint={1} >
                 <CDBSidebarHeader prefix={<i className="fa fa-bars fa-large"></i>}>
                     <a href="/" className="text-decoration-none" style={{color: 'inherit'}}>
                         {instrumentName}
@@ -30,12 +31,21 @@ function SideBar({instrumentName }) {
                                 Home
                             </CDBSidebarMenuItem>
                         </NavLink>
-                        <NavLink to="/examplepage" className={({ isActive }) => (isActive ? 'activeClicked' : '')}>
-                            <CDBSidebarMenuItem icon={'plus-circle'}>
-                                Example Page
+                        <NavLink to="/vacuum-gauge" className={({ isActive }) => (isActive ? 'activeClicked' : '')}>
+                            <CDBSidebarMenuItem icon={'bell'}>
+                                VacGauge
                             </CDBSidebarMenuItem>
                         </NavLink>
-
+                        <NavLink to="/geist-monitors" className={({ isActive }) => (isActive ? 'activeClicked' : '')}>
+                            <CDBSidebarMenuItem icon={'chalkboard'}>
+                                Geist Monitors
+                            </CDBSidebarMenuItem>
+                        </NavLink>
+                        <NavLink to="/lesker-box" className={({ isActive }) => (isActive ? 'activeClicked' : '')}>
+                            <CDBSidebarMenuItem icon={'thermometer'}>
+                                Lesker Box
+                            </CDBSidebarMenuItem>
+                        </NavLink>
                     </CDBSidebarMenu>
                 </CDBSidebarContent>
             </CDBSidebar>

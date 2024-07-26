@@ -42,11 +42,9 @@ function KeywordBoolSwitch({keyword, label, makeConfirm}) {
                     id={`${keyword}-bool-switch`}
                     onChange={handleSwitched}
                     checked={isSwitchOn}
-                    style={{display:"inline"}}
+                    style={{ display: "inline"}}
                 />
             </FormLabel>
-
-
         </Form>
     );
 }

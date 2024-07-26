@@ -2,16 +2,18 @@ import './App.css';
 import {BrowserRouter, Routes, Route} from 'react-router-dom';
 import SideBar from './components/SideBar';
 import Home from './pages/Home';
-import ExamplePage from "./pages/ExamplePage";
 import NotFound from "./pages/NotFound";
 import {WebSocketProvider1} from "./context/WebSocketProviders";
+import VacGauge from "./pages/VacGauge";
+import GeistMonitors from "./pages/GeistMonitors";
+import LeskerBox from "./pages/LeskerBox";
 
 function App() {
 
 ////////////////////////////////////////////////////////////////
-    const url = 'ws://scaleserver:8080/gshowd';        //
-    const serviceName = "pie"                          //
-    const instrumentName = "INSTRUMENT NAME"           //
+    const url = 'wss://scaleserver.ucolick.org:8081/gshowd';
+    const serviceName = "sca% -s cleanroom"
+    const instrumentName = "CLEANROOM"
 ////////////////////////////////////////////////////////////////
 
 
@@ -21,12 +23,14 @@ function App() {
     return (
         <div className="App d-flex">
             <WebSocketProvider1 url={url} command={modifiedCommand}>
-                <BrowserRouter>
-                    <SideBar instrumentName={instrumentName}/>
-                    <div className='App flex-grow-1'>
+                <BrowserRouter basename='/cleanroom'>
+                    <SideBar instrumentName={instrumentName} />
+                    <div className='flex-grow-1' style={{overflow:'auto', height:'100vh'}}>
                         <Routes>
                             <Route path="/" element={<Home />} />
-                            <Route path="/examplepage" element={<ExamplePage/>} />
+                            <Route path="/vacuum-gauge" element={<VacGauge/>} />
+                            <Route path="/geist-monitors" element={<GeistMonitors/>} />
+                            <Route path="/lesker-box" element={<LeskerBox />} />
                             <Route path="*" element={<NotFound/>}/>
                         </Routes>
                     </div>

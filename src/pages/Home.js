@@ -1,5 +1,8 @@
 import React from 'react';
 import DataContainer2Cols from "../components/DataContainer2Cols";
+import VacGauge from "./VacGauge";
+import GeistMonitors from "./GeistMonitors";
+import LeskerBox from "./LeskerBox";
 
 function Home() {
     const welcomeTop =
@@ -13,11 +16,11 @@ function Home() {
         </div>
 
     return (
-        <div>
-            <div>
-                <DataContainer2Cols header={'WELCOME TO YOUR OWN REACT-WEBKTL PAGE'} contentTop={welcomeTop}/>
-            </div>
-        </div>
+        <>
+            <VacGauge />
+            <GeistMonitors />
+            <LeskerBox/>
+        </>
     );
 }
 

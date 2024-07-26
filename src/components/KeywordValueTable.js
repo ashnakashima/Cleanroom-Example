@@ -1,8 +1,8 @@
 import React, {useEffect, useState} from 'react';
-import {Table} from "react-bootstrap";
+import {Spinner, Table} from "react-bootstrap";
 import {useWebSocket1} from "../context/WebSocketProviders";
 
-function KeywordValueTable({ keywordList }) {
+function KeywordValueTable({ keywordList, keywordLabelList, title, includeRemarks}) {
     const { messages, metadata } = useWebSocket1();
     const [values, setValues] = useState({});
 
@@ -17,11 +17,27 @@ function KeywordValueTable({ keywordList }) {
         setValues(newValues);
     }, [messages, keywordList]);
 
-    const getRemarks = (keyword) => {
+    const getHtmlLabel = (keyword) => {
         if(metadata[keyword]) {
-            return metadata[keyword].remarks;
+            const parsedRemarks = JSON.parse(metadata[keyword].remarks);
+            return parsedRemarks.htmllabel
 ;        }else {
-            return "Keyword not found";
+            return <Spinner animation='border' size='sm'/>;
+        }
+    }
+    const getUnits = (keyword) => {
+        if(metadata[keyword]) {
+            const unit = metadata[keyword].lunits;
+            if(unit !== "meaningless units"){
+                if (typeof unit === 'string') {
+                    return unit.replace(/deg/g, '°').replace(/\s+/g, '');
+                }
+                return unit;
+            }else{
+                return null;
+            }
+        }else {
+            return null;
         }
     }
 
@@ -29,16 +45,24 @@ function KeywordValueTable({ keywordList }) {
     return (
         <div className='key-value-table'>
             <Table bordered hover >
+                {title ? (
+                    <thead>
+                    <tr>
+                        <th colSpan={includeRemarks ? 3 : 2} style={{ backgroundColor: 'whitesmoke' }}>{title}</th>
+                    </tr>
+                    </thead>
+                ) : null}
                 <tbody>
-                {keywordList.map(keyword => (
-                    <tr key={keyword} >
-                        <td style={{width:'35%'}}>{keyword}</td>
+                {keywordList.map(((keyword, index) => (
+                    <tr key={`${keyword}-${index}`}>
+                    <td style={{width:'30%'}}>{keywordLabelList ? <b>{keywordLabelList[index]}</b> : keyword}</td>
+                        {includeRemarks && <td>{getHtmlLabel(keyword)}</td>}
                         {values[keyword] !== null ?
-                            <td> {values[keyword]} </td>
+                            <td> {values[keyword]}{getUnits(keyword)}</td>
                             :
                             <td style={{backgroundColor:'pink'}}>ERROR: KEYWORD NOT VALID or VALUE is null</td>}
                     </tr>
-                ))}
+                )))}
                 </tbody>
             </Table>
         </div>

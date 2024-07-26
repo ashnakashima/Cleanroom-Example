@@ -2,7 +2,7 @@ import React, {useEffect, useState} from 'react';
 import Plot from "react-plotly.js";
 import {useWebSocket2} from "../context/WebSocketProviders";
 import {Col, Container, Form, FormLabel, Row} from "react-bootstrap";
-import {autosize} from "plotly.js/src/plots/layout_attributes";
+import autosize from "plotly.js/src/plots/layout_attributes";
 
 function PlotCommand(
     {
@@ -158,12 +158,14 @@ function PlotCommand(
                     </Col>
                 </Row>
             </Container>
+
             <Plot
                 data={plotData}
                 layout={{
                     title: title ?? 'Fancy Plot',
                     autosize
-            }}
+                }}
+                style={{overflowX:"scroll"}}
             />
         </div>
     );
