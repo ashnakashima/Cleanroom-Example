@@ -1,6 +1,5 @@
 import React from 'react';
 import './SideBar.css';
-
 import {
     CDBSidebar,
     CDBSidebarContent,
@@ -9,8 +8,6 @@ import {
     CDBSidebarMenuItem,
 } from 'cdbreact';
 import { NavLink } from 'react-router-dom';
-import autosize from "plotly.js/src/plots/layout_attributes";
-
 
 function SideBar({instrumentName }) {
 

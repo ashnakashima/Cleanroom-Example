@@ -2,7 +2,6 @@ import React from 'react';
 import DataContainer2Cols from "../components/DataContainer2Cols";
 import KeywordHistoryPlot from "../components/KeywordHistoryPlot";
 import DisplayKeywordValue from "../components/DisplayKeywordValue";
-import Data from "bootstrap/js/src/dom/data";
 import KeywordValueTable from "../components/KeywordValueTable";
 import Ticker from "../components/Ticker";
 

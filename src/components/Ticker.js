@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import {useWebSocket1} from "../context/WebSocketProviders";
 
-// Define the function to map values to ticker marks based on switch cases
 const getTickerMark = (value) => {
     switch (value) {
         case '\\':

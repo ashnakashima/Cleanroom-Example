@@ -1,5 +1,4 @@
 import React from 'react';
-import DataContainer2Cols from "../components/DataContainer2Cols";
 import VacGauge from "./VacGauge";
 import GeistMonitors from "./GeistMonitors";
 import LeskerBox from "./LeskerBox";

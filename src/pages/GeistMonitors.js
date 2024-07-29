@@ -3,7 +3,6 @@ import DataContainer2Cols from "../components/DataContainer2Cols";
 import DisplayKeywordValue from "../components/DisplayKeywordValue";
 import KeywordValueTable from "../components/KeywordValueTable";
 import KeywordDropdownButton from "../components/KeywordDropdownButton";
-import KeywordBoolSwitch from "../components/KeywordBoolSwitch";
 import Ticker from "../components/Ticker";
 
 function GeistMonitors(props) {

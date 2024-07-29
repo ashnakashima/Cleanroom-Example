@@ -1,7 +1,6 @@
 import React from 'react';
 import DisplayKeywordValue from "../components/DisplayKeywordValue";
 import DataContainer2Cols from "../components/DataContainer2Cols";
-import KeywordValueTable from "../components/KeywordValueTable";
 import Ticker from "../components/Ticker";
 
 function VacGauge(props) {
@@ -23,9 +22,7 @@ function VacGauge(props) {
             header={'Vacuum Gauge'}
             contentLeft={<DataContainer2Cols contentLeft={<b>AGC302:</b>} contentRight={content1}/>}
             contentRight={<></>}
-
         >
-
         </DataContainer2Cols>
     );
 }
