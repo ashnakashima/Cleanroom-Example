@@ -22,7 +22,6 @@ function KeywordForm({keyword, label, makeConfirm}) {
 
     const handleInput = (e) => {
         setInput(e.target.value)
-        console.log(`input: ${input}`)
         setBgColor(e.target.value ? "pink" : "transparent");
     }
 

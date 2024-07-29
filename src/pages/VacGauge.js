@@ -9,7 +9,7 @@ function VacGauge(props) {
         <>
             <div style={{display:"inline-flex"}}>
                 <DisplayKeywordValue keyword={'scalevac.DISP1STA'} label={'Dispatcher Status'}/>
-                <Ticker keyword={'scalevac.DISP1STA'}/>
+                <Ticker keyword={'scalevac.DISP1CLK'}/>
             </div>
             <DisplayKeywordValue keyword={'scalevac.STAT'} label={'AGC302 STATUS'} />
             <div style={{display:"inline-flex"}}>

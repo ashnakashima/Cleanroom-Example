@@ -79,7 +79,7 @@ function PlotCommand(
     };
 
     return (
-        <div className="card" style={{margin: 10, padding: 5}}>
+        <div className="card" style={{margin: 5, padding: 5}}>
             <Container>
                 <Row>
                     <Col xs={11}>

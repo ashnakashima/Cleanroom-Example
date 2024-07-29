@@ -12,6 +12,8 @@ const getTickerMark = (value) => {
             return '-';
         case '-':
             return '\\';
+        default:
+            return value;
     }
 };
 
@@ -19,26 +21,21 @@ const Ticker = ({ keyword }) => {
     const [currentValue, setCurrentValue] = useState('/'); // Initialize with default value
     const {messages} = useWebSocket1();
     const [messageCount, setMessageCount] = useState(0);
+    const [lastMessage, setLastMessage] = useState('');
 
     useEffect(() => {
         messages.forEach((msg) => {
-            if (msg.key === keyword) {
-                setMessageCount((prevCount) => {
-                    const newCount = prevCount + 1;
+            if(msg.key === keyword && msg.value !== lastMessage){
+                setCurrentValue(getTickerMark(currentValue));
+                setLastMessage(msg.value)
 
-                    // Only update currentValue every 5 messages
-                    if (newCount % 10 === 0) {
-                        setCurrentValue(getTickerMark(currentValue));
-                    }
-
-                    return newCount;
-                });
             }
-        });
-    }, [messages, keyword, currentValue]);
+
+        })
+    }, [messages])
 
     return (
-        <div>
+        <div id={'ticker'}>
             {currentValue}
         </div>
     );

@@ -28,7 +28,7 @@ function DataContainer2Cols({header, contentTop, contentLeft, contentRight, cont
     }
 
     return (
-        <div className='card' style={{margin:10, padding:5}}>
+        <div className='card' style={{margin:5, padding:5}}>
             {header ? <div className='header'>{header} </div> : " "}
             {displayContent()}
         </div>

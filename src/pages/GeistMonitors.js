@@ -25,16 +25,10 @@ function GeistMonitors(props) {
     const content3 =
         <DataContainer2Cols
             contentLeft={
-            <>
-                <b>Internal Sensor:</b>
-                <KeywordValueTable keywordList={['cleanroom.INTRN_A_TEMP', 'cleanroom.INTRN_A_RH', 'cleanroom.INTRN_A_DEWP']} keywordLabelList={['Temp (deg)', 'RH (%)', 'Dewpoint (deg)']}/>
-            </>}
+                <KeywordValueTable title={'Internal Sensor'} keywordList={['cleanroom.INTRN_A_TEMP', 'cleanroom.INTRN_A_RH', 'cleanroom.INTRN_A_DEWP']} keywordLabelList={['Temp (deg)', 'RH (%)', 'Dewpoint (deg)']}/>
+            }
             contentRight={
-            <>
-                <b>E-rack:</b>
-                <KeywordValueTable keywordList={['cleanroom.THD1_A_TEMP', 'cleanroom.THD1_A_RH', 'cleanroom.THD1_A_DEWP', 'cleanroom.THD1_A_SER']} keywordLabelList={['Temp (deg)', 'RH (%)', 'Dewpoint (deg)', '']}/>
-
-            </>
+                <KeywordValueTable title={'E-rack'} keywordList={['cleanroom.THD1_A_TEMP', 'cleanroom.THD1_A_RH', 'cleanroom.THD1_A_DEWP', 'cleanroom.THD1_A_SER']} keywordLabelList={['Temp (deg)', 'RH (%)', 'Dewpoint (deg)', '']}/>
             }
         />
 
