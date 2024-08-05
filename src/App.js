@@ -25,7 +25,7 @@ function App() {
             <WebSocketProvider1 url={url} command={modifiedCommand}>
                 <BrowserRouter basename='/cleanroom'>
                     <SideBar instrumentName={instrumentName} />
-                    <div className='flex-grow-1' style={{overflow:'auto', height:'100vh'}}>
+                    <div className='App'>
                         <Routes>
                             <Route path="/" element={<Home />} />
                             <Route path="/vacuum-gauge" element={<VacGauge/>} />

@@ -1,25 +1,34 @@
-import React, {createContext, useCallback, useContext, useEffect, useState} from 'react';
+import React, {createContext, useCallback, useContext, useEffect, useRef, useState} from 'react';
 
-const createWebSocketContext = (messageHandler, plotUpdate) => {
+// 8/5/24 - aNakashima
+// Expect 3 WebSocket connection errors prior to the 2 needed successful connection.
+// Don't know where errors are coming from, but appears harmless
+const createWebSocketContext = (messageHandler) => {
     const WebSocketContext = createContext(null);
 
     const WebSocketProvider = ({url, children, command}) => {
         const [messages, setMessages] = useState([]);
-        const [ws, setWs] = useState(null);
         const [reqIdCounter, setReqIdCounter] = useState(0);
         const [metadata, setMetadata] = useState({});
+        const wsRef = useRef(null);
+
 
         const closeConnection = useCallback(() => {
-            if(ws){
-                ws.close();
+            if (wsRef.current) {
+                wsRef.current.close();
             }
-        }, [ws]);
+        }, []);
 
         useEffect(() => {
+            if (wsRef.current) {
+                wsRef.current.close();
+            }
+
             const wsClient = new WebSocket(url);
+            wsRef.current = wsClient;
 
             wsClient.onopen = () => {
-                console.log(`Connected to WebSocket server at ${url}`);
+                console.log(`-- Connected to WebSocket server at ${url}`);
                 try {
                     if (command) {
                         wsClient.send(command);
@@ -38,14 +47,12 @@ const createWebSocketContext = (messageHandler, plotUpdate) => {
             };
 
             wsClient.onclose = (event) => {
-                console.log(`WebSocket connection closed at ${url}. Code: ${event.code}, Reason: ${event.reason}`);
+                console.log(`WebSocket connection closed at ${url}. Code: ${event.code}`);
             };
 
             wsClient.onerror = (error) => {
                 console.error(`WebSocket error at ${url}: `, error);
             };
-
-            setWs(wsClient);
 
             return () => {
                 if (wsClient.readyState === WebSocket.OPEN) {
@@ -55,6 +62,7 @@ const createWebSocketContext = (messageHandler, plotUpdate) => {
         }, [command, url]);
 
         const sendMessage = useCallback((message) => {
+            const ws = wsRef.current;
             if (ws && ws.readyState === WebSocket.OPEN) {
                 setReqIdCounter(prevCounter => {
                     const newCounter = prevCounter + 1;
@@ -66,7 +74,7 @@ const createWebSocketContext = (messageHandler, plotUpdate) => {
             } else {
                 console.error(`WebSocket is not open at ${url}`);
             }
-        }, [ws, url]);
+        }, [ url]);
 
         return (
             <WebSocketContext.Provider value={{ messages, sendMessage, closeConnection, metadata }}>
